@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash/env bash
 #Configuring web-02 to be identical to web-01
 
 # Install Nginx
