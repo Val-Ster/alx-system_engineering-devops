@@ -1,0 +1,12 @@
+#!/bin/bash
+#Configuring web-02 to be identical to web-01
+
+# Install Nginx
+apt-get update
+apt-get install -y nginx
+
+# Set up custom HTTP response header
+sed -i '/server_name _;/a \\n\tadd_header X-Served-By $hostname;' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply changes
+service nginx restart
