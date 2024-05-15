@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# This script listens on port 98 on localhost
+
+# Create a named pipe
+mkfifo /tmp/port_98_pipe
+
+# Listen on port 98 and redirect input to the named pipe
+while true; do
+    nc -l 127.0.0.1 98 < /tmp/port_98_pipe
+done
