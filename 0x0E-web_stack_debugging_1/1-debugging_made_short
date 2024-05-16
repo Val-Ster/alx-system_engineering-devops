@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Making task #0's fix, shorter and sweet
+# Making task 0's fix, shorter and sweet
 cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default #copying sites-available into sites-enabled
 service nginx restart
 kill "$(cat /run/nginx.pid)"

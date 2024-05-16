@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 # Script to configure Nginx to listen on port 80
+
+# Update Nginx configuration to listen on port 80
+# Removing the configuration file in the sites-enabled.
 rm /etc/nginx/sites-enabled/default
+
+# Symbolic(-s) linking(ln)
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Restarting Nginx
 service nginx restart
