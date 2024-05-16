@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 # Making task #0's fix, shorter and sweet
-
-#copying sites-available into sites-enabled.
-cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-# Restarting nginx service
+cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default #copying sites-available into sites-enabled
 service nginx restart
-
-#Killing nginx, to ensure it states 'nginx is not running' once all is done.
 kill "$(cat /run/nginx.pid)"
