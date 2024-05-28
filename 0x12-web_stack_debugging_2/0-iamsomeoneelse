@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script runs the whoami command as the user passed as an argument
+if [ $# -eq 1 ]; then
+sudo -u "$1" whoami
+else
+echo "Usage: $0 <username>"
+fi
+
