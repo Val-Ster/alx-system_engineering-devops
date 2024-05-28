@@ -1,26 +1,14 @@
 #!/usr/bin/env bash
 # Configure my ufw to block traffic and allow some ports
 
-# Update the list of available packages and their versions
-sudo apt-get update
+# Enable the ufw
+sudo ufw enable
 
-# Install ufw (Uncomplicated Firewall), a user-friendly interface for managing firewall rules
-sudo apt-get install ufw
-
-# Allow incoming connections on port 22 (SSH), which is necessary for remote login
+# Allow  SSH
 sudo ufw allow 22/tcp
 
-# Allow incoming connections on port 80 (HTTP), which is necessary for serving web pages
-sudo ufw allow 80/tcp
-
-# Allow incoming connections on port 443 (HTTPS), which is necessary for serving web pages over SSL/TLS
+# Allow HTTPS SSL
 sudo ufw allow 443/tcp
 
-# Set the default policy to deny all incoming connections to enhance security
-sudo ufw default deny incoming
-
-# Set the default policy to allow all outgoing connections to ensure the server can reach outside services
-sudo ufw default allow outgoing
-
-# Enable ufw to apply the configured rules
-sudo ufw enable
+# Allow HTTP
+sudo ufw allow 80/tcp
