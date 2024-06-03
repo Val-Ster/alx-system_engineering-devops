@@ -18,17 +18,8 @@ if __name__ == "__main__":
     todos = todos_response.json()
 
     user_name = user.get('name')
-    total_tasks = len(todos)
-    completed_tasks = sum(1 for todo in todos if todo.get('completed'))
-
     tasks = [{"task": todo.get("title"), "completed": todo.get("completed"),
-             "username": user_name} for todo in todos]
+              "username": user_name} for todo in todos]
 
     with open(f"{user_id}.json", "w") as json_file:
         json.dump({user_id: tasks}, json_file)
-
-    print(f"Employee {user_name} is done with tasks
-          ({completed_tasks}/{total_tasks}): ")
-    for task in tasks:
-        if task["completed"]:
-            print(f"\t{task['task']}")
