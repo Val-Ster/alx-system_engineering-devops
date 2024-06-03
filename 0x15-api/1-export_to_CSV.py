@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Fetch data from a REST API and export it in CSV format."""
+
 import csv
 import requests
 import sys
@@ -20,5 +22,5 @@ if __name__ == "__main__":
     with open(f"{user_id}.csv", "w", newline='') as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
         for todo in todos:
-            writer.writerow([user_id, username,
-                             todo.get("completed"), todo.get("title")])
+            writer.writerow([user_id, username, todo.get("completed"),
+                            todo.get("title")])

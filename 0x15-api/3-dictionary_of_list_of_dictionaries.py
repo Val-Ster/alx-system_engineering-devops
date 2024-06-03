@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Fetch data from a REST API and export it in JSON format for all users."""
+
 import json
 import requests
 
@@ -18,7 +20,7 @@ if __name__ == "__main__":
 
         username = user.get('username')
         tasks = [{"username": username, "task": todo.get("title"),
-                  "completed": todo.get("completed")} for todo in todos]
+                 "completed": todo.get("completed")} for todo in todos]
         data[user_id] = tasks
 
     with open("todo_all_employees.json", "w") as json_file:

@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""Fetch data from a REST API and export it in JSON format."""
+
+import json
 import requests
 import sys
 
