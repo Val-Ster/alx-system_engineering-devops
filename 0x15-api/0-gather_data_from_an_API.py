@@ -1,25 +1,41 @@
 #!/usr/bin/python3
-"""Fetch data from a REST API and export it in JSON format."""
-
-import json
+"""
+Gathering data from an API using the requests module
+"""
 import requests
-import sys
+from sys import argv
 
 
-if __name__ == "__main__":
-    user_id = sys.argv[1]
-    user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
-    todos_url = f"https://jsonplaceholder.typicode.com/users/{user_id}/todos"
+def fetch_todo_progress(employee_id):
+    """Get's the exact resource for the employee id"""
+    url = f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}"
+    response = requests.get(url)
+    return response.json()
 
-    user_response = requests.get(user_url)
-    todos_response = requests.get(todos_url)
 
-    user = user_response.json()
-    todos = todos_response.json()
+def display_tasks(employee_id):
+    """Display's the completed tasks of the user"""
+    tasks_data = fetch_todo_progress(employee_id)
+    num_of_tasks = len(tasks_data)
+    completed_tasks = sum(task['completed'] for task in tasks_data)
+    return completed_tasks, num_of_tasks
 
-    user_name = user.get('name')
-    tasks = [{"task": todo.get("title"), "completed": todo.get("completed"),
-              "username": user_name} for todo in todos]
 
-    with open(f"{user_id}.json", "w") as json_file:
-        json.dump({user_id: tasks}, json_file)
+def fetch_user(employee_id):
+    """Gets the user associated witht the resource"""
+    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+    response = requests.get(url)
+    user_data = response.json()
+    name = user_data.get('name')
+    return name
+
+
+if __name__ == '__main__':
+    employee_id = argv[1]
+    complete_task, sum_tasks = display_tasks(employee_id)
+    user = fetch_user(employee_id)
+
+    print(f"Employee {user} is done with tasks({complete_task}/{sum_tasks}):")
+    for task in fetch_todo_progress(employee_id):
+        if task['completed']:
+            print(f"\t {task['title']}")
