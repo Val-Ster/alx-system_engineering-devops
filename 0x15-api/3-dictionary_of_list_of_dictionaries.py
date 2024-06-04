@@ -1,27 +1,38 @@
 #!/usr/bin/python3
-"""Fetch data from a REST API and export it in JSON format for all users."""
-
+"""
+Module
+"""
 import json
 import requests
 
 
-if __name__ == "__main__":
-    users_url = "https://jsonplaceholder.typicode.com/users"
-    users_response = requests.get(users_url)
-    users = users_response.json()
+file_path = 'todo_all_employees.json'
+all_employee_dict = {}
+for i in range(1, 11):
+    url = f'https://jsonplaceholder.typicode.com/users/{i}'
 
-    data = {}
-    for user in users:
-        user_id = user.get('id')
-        todos_url =
-        f"https://jsonplaceholder.typicode.com/users/{user_id}/todos"
-        todos_response = requests.get(todos_url)
-        todos = todos_response.json()
+    # file to store csv info
+    response_user = requests.get(url)
+    url += '/todos'
+    response_todo = requests.get(url)
 
-        username = user.get('username')
-        tasks = [{"username": username, "task": todo.get("title"),
-                 "completed": todo.get("completed")} for todo in todos]
-        data[user_id] = tasks
+    try:
+        json_data = response_user.json()
+        username = json_data['username']
+        user_id = json_data['id']
+        # get user's todo in json format
+        json_data = response_todo.json()
+    except json.JSONDecodeError:
+        print('Not a valid JSON!')
 
-    with open("todo_all_employees.json", "w") as json_file:
-        json.dump(data, json_file)
+    rows = [{
+                "task": data["title"],
+                "completed": data["completed"],
+                "username": username
+            } for data in json_data
+            ]
+    all_employee_dict[user_id] = rows
+
+# store data in a json file
+with open(file_path, mode='w') as file:
+    json.dump(all_employee_dict, file)
