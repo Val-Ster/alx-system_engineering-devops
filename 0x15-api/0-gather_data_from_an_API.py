@@ -22,7 +22,7 @@ def display_tasks(employee_id):
 
 
 def fetch_user(employee_id):
-    """Gets the user associated witht the resource"""
+    """Gets the user associated with the resource"""
     url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     response = requests.get(url)
     user_data = response.json()
